@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" / -->
+  <include file="$(find lidar_interface)/launch/hector_mapping/hector_mapping_no_odom.launch" /> -->
+
+  <node type="rviz" name="rviz" pkg="rviz" args="-f velodyne -d $(find lidar_interface)/rviz/hector_slam_velodyne.rviz" /> -->
+
+</launch>
