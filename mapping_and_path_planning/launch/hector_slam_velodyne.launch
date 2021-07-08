@@ -3,8 +3,8 @@
 <launch>
 
   <!-- include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" / -->
-  <include file="$(find lidar_interface)/launch/hector_mapping/hector_mapping_no_odom.launch" /> -->
+  <include file="$(find mapping_and_path_planning)/launch/hector_mapping/hector_mapping_no_odom.launch" /> -->
 
-  <node type="rviz" name="rviz" pkg="rviz" args="-f velodyne -d $(find lidar_interface)/rviz/hector_slam_velodyne.rviz" /> -->
+  <node type="rviz" name="rviz" pkg="rviz" args="-f velodyne -d $(find mapping_and_path_planning)/rviz/hector_slam_velodyne.rviz" /> -->
 
 </launch>
