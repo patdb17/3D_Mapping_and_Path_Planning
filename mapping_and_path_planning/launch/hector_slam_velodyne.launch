@@ -2,9 +2,14 @@
 
 <launch>
 
-  <!-- include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" / -->
-  <include file="$(find mapping_and_path_planning)/launch/hector_mapping/hector_mapping_no_odom.launch" /> -->
+  <!--  Uncomment the line below for use with live data-->
+  <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" />
+  <include file="$(find mapping_and_path_planning)/launch/hector_mapping/hector_mapping_no_odom.launch" />
 
   <node type="rviz" name="rviz" pkg="rviz" args="-f velodyne -d $(find mapping_and_path_planning)/rviz/hector_slam_velodyne.rviz" /> -->
+
+  <!-- Sample LiDAR Data Playback-->
+  <!--  Comment out the line below for use with live data-->
+  <!--node pkg="rosbag" type="play" name="play" output="screen" args="$(find mapping_and_path_planning)/bagfiles/sample_lidar_data.bag" /-->
 
 </launch>
