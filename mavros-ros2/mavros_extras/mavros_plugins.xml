@@ -1,0 +1,18 @@
+<!-- [[[cog:
+import mavros_cog
+
+mavros_cog.outl_plugins_xml('src/plugins', 'mavros_extras_plugins')
+]]] -->
+<library path="mavros_extras_plugins">
+  <class name="adsb" type="mavros::plugin::PluginFactoryTemplate&lt;mavros::extra_plugins::ADSBPlugin&gt;" base_class_type="mavros::plugin::PluginFactory">
+    <description>@brief ADS-B Vehicle plugin
+@plugin adsb
+
+Publish/subscribe Automatic dependent surveillance-broadcast data to/from a vehicle.</description>
+  </class>
+  <class name="tdr_radio" type="mavros::plugin::PluginFactoryTemplate&lt;mavros::extra_plugins::TDRRadioPlugin&gt;" base_class_type="mavros::plugin::PluginFactory">
+    <description>@brief 3DR Radio plugin.
+@plugin tdr_radio</description>
+  </class>
+</library>
+<!-- [[[end]]] (checksum: 93bb68673099efec9f0f56961ab3343f) -->

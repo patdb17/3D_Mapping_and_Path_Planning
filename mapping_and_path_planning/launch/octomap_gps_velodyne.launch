@@ -1,0 +1,36 @@
+<launch>
+
+  <!-- Velodyne -->
+  <!-- Initializes and starts the VLP16 -->
+  <!-- Uncomment the line below for use with live data -->
+  <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" />
+
+
+	<!-- Octomap -->
+  <!-- Listens to incoming PointCloud2 data and incrementally builds an octomap.
+       The data is sent out in different representations.
+       See www.ros.org/wiki/octomap_server for details -->
+	<node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+		<param name="resolution" value="0.05" />
+
+		<!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
+		<param name="frame_id" type="string" value="map" />
+
+		<!-- maximum range to integrate (speedup!) -->
+		<param name="sensor_model/max_range" value="50.0" />
+
+		<!-- data source to integrate (PointCloud2) -->
+		<remap from="cloud_in" to="/velodyne_points" />
+
+	</node>
+
+	<!-- Rviz -->
+  <!-- Starts Rviz for visualizin the data from the lidar, the 2D Hector map, and the 3D octomap -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find mapping_and_path_planning)/rviz/octomap_velodyne.rviz"
+		required="true" output="screen"/>
+
+  <!-- Sample LiDAR Data Playback-->
+  <!--  Comment out the line below for use with live data-->
+  <!--node pkg="rosbag" type="play" name="play" output="screen" args="$(find mapping_and_path_planning)/bagfiles/sample_lidar_data.bag"/-->
+
+</launch>
