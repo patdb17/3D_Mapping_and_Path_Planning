@@ -3,7 +3,7 @@
 <launch>
   <!-- Velodyne -->
   <!-- Uncomment the line below for use with live data-->
-  <!--include file="$(find mapping_and_path_planning)/launch/velodyne/VLP16.launch" /-->
+  <include file="$(find mapping_and_path_planning)/launch/velodyne/VLP16.launch" />
 
   <!-- Rviz -->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mapping_and_path_planning)/rviz/VLP16_pointcloud.rviz"
@@ -11,5 +11,5 @@
 
   <!-- Sample LiDAR Data Playback-->
   <!--  Comment out the line below for use with live data-->
-  <node pkg="rosbag" type="play" name="play" output="screen" args="$(find mapping_and_path_planning)/bagfiles/sample_lidar_data.bag"/>
+  <!--node pkg="rosbag" type="play" name="play" output="screen" args="$(find mapping_and_path_planning)/bagfiles/sample_lidar_data.bag"/-->
 </launch>

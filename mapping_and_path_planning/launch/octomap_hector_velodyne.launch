@@ -9,7 +9,7 @@ data from the VLP16-->
   <!-- Velodyne -->
   <!-- Initializes and starts the VLP16 -->
   <!-- Uncomment the line below for use with live data -->
-  <!--include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" /-->
+  <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" />
 
 
 
@@ -42,6 +42,6 @@ data from the VLP16-->
 
   <!-- Sample LiDAR Data Playback-->
   <!--  Comment out the line below for use with live data-->
-  <node pkg="rosbag" type="play" name="play" output="screen" args="$(find mapping_and_path_planning)/bagfiles/sample_lidar_data.bag"/>
+  <!-- node pkg="rosbag" type="play" name="play" output="screen" args="$(find mapping_and_path_planning)/bagfiles/sample_lidar_data.bag"/-->
 
 </launch>

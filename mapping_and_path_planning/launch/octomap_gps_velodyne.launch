@@ -1,5 +1,10 @@
 <launch>
 
+  <!-- Pixhawk -->
+  <!-- Starts the Mavros node for IMU/GPS data -->
+  <include file="$(find mavros)/launch/apm.launch" />
+
+
   <!-- Velodyne -->
   <!-- Initializes and starts the VLP16 -->
   <!-- Uncomment the line below for use with live data -->
@@ -11,13 +16,23 @@
        The data is sent out in different representations.
        See www.ros.org/wiki/octomap_server for details -->
 	<node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
-		<param name="resolution" value="0.05" />
+		<param name="resolution" value="0.20" />
 
 		<!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
-		<param name="frame_id" type="string" value="map" />
+
+    <!-- Required tf Transforms
+sensor data frame → /map (static world frame, changeable with parameter frame_id)
+    Required transform of sensor data into the global map frame if you do scan integration.
+    This information needs to be available from an external SLAM or localization node.-->
+
+    <!-- Possible options: odom, odom_ned, odom_combined, map, map_ned, velodyne,
+    world, base_link, base_link_frd, nav -->
+		<param name="frame_id" type="string" value="nav" />
+
+    <param name="base_frame_id" type="string" value="" />
 
 		<!-- maximum range to integrate (speedup!) -->
-		<param name="sensor_model/max_range" value="50.0" />
+		<param name="sensor_model/max_range" value="75.0" />
 
 		<!-- data source to integrate (PointCloud2) -->
 		<remap from="cloud_in" to="/velodyne_points" />
