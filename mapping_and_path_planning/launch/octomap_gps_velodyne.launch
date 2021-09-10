@@ -1,14 +1,17 @@
 <launch>
 
+	<param name="/use_sim_time" value="true"/>
+
   <!-- Pixhawk -->
   <!-- Starts the Mavros node for IMU/GPS data -->
-  <include file="$(find mavros)/launch/apm.launch" />
+  <!-- Uncomment the line below for use with live data -->
+  <!--include file="$(find mavros)/launch/apm.launch" /-->
 
 
   <!-- Velodyne -->
   <!-- Initializes and starts the VLP16 -->
   <!-- Uncomment the line below for use with live data -->
-  <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" />
+  <!--include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" /-->
 
 
 	<!-- Octomap -->
@@ -16,7 +19,7 @@
        The data is sent out in different representations.
        See www.ros.org/wiki/octomap_server for details -->
 	<node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
-		<param name="resolution" value="0.20" />
+		<param name="resolution" value="0.4" />
 
 		<!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
 
@@ -26,10 +29,10 @@ sensor data frame → /map (static world frame, changeable with parameter frame_
     This information needs to be available from an external SLAM or localization node.-->
 
     <!-- Possible options: odom, odom_ned, odom_combined, map, map_ned, velodyne,
-    world, base_link, base_link_frd, nav -->
-		<param name="frame_id" type="string" value="nav" />
+    world, base_link, base_link_frd, nav, fcu, local_origin, fcu_utm, -->
+		<param name="frame_id" type="string" value="map" />
 
-    <param name="base_frame_id" type="string" value="" />
+    <!--param name="base_frame_id" type="string" value="" /-->
 
 		<!-- maximum range to integrate (speedup!) -->
 		<param name="sensor_model/max_range" value="75.0" />
@@ -39,6 +42,10 @@ sensor data frame → /map (static world frame, changeable with parameter frame_
 
 	</node>
 
+	<!-- Starts node to publish map->velodyne transforms -->
+	<node pkg="mapping_and_path_planning" name="tf2_velodyne_map_broadcaster"  type="tf2_map_velodyne.py" output="screen">
+	</node>
+
 	<!-- Rviz -->
   <!-- Starts Rviz for visualizin the data from the lidar, the 2D Hector map, and the 3D octomap -->
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find mapping_and_path_planning)/rviz/octomap_velodyne.rviz"
@@ -46,6 +53,11 @@ sensor data frame → /map (static world frame, changeable with parameter frame_
 
   <!-- Sample LiDAR Data Playback-->
   <!--  Comment out the line below for use with live data-->
-  <!--node pkg="rosbag" type="play" name="play" output="screen" args="$(find mapping_and_path_planning)/bagfiles/sample_lidar_data.bag"/-->
+
+  <node pkg="rosbag" type="play" name="play" output="screen" args="--clock $(find mapping_and_path_planning)/bagfiles/velodyne_mavros.bag">
+		arg
+	</node>
+
+
 
 </launch>
