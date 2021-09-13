@@ -5,7 +5,7 @@
   <!-- Pixhawk -->
   <!-- Starts the Mavros node for IMU/GPS data -->
   <!-- Uncomment the line below for use with live data -->
-  <include file="$(find mavros)/launch/apm.launch" />
+  <!--<include file="$(find mavros)/launch/apm.launch" />-->
 
 	<!-- <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" clear_params="true">
 		<rosparam command="load" file="$(find robot_localization)/params/navsat_transform_template.yaml" /> -->
