@@ -11,5 +11,6 @@
 
   <!-- Sample LiDAR Data Playback-->
   <!--  Comment out the line below for use with live data-->
-  <!--node pkg="rosbag" type="play" name="play" output="screen" args="$(find mapping_and_path_planning)/bagfiles/sample_lidar_data.bag"/-->
+  <!-- <node pkg="rosbag" type="play" name="play" output="screen" args="$(find mapping_and_path_planning)/bagfiles/2021-09-10-14-12-22.bag"/> -->
+
 </launch>

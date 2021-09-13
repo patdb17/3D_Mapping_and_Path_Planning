@@ -1,17 +1,28 @@
 <launch>
 
-	<param name="/use_sim_time" value="true"/>
+	<!-- <param name="/use_sim_time" value="true"/> -->
 
   <!-- Pixhawk -->
   <!-- Starts the Mavros node for IMU/GPS data -->
   <!-- Uncomment the line below for use with live data -->
-  <!--include file="$(find mavros)/launch/apm.launch" /-->
+  <include file="$(find mavros)/launch/apm.launch" />
+
+	<!-- <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" clear_params="true">
+		<rosparam command="load" file="$(find robot_localization)/params/navsat_transform_template.yaml" /> -->
+
+			<!-- Placeholders for input remapping. Set your topic names as the "to" values.
+			<remap from="imu/data" to=""/>
+			<remap from="odometry/filtered" to=""/>
+			<remap from="gps/fix" to=""/>
+			-->
+
+	<!-- </node> -->
 
 
   <!-- Velodyne -->
   <!-- Initializes and starts the VLP16 -->
   <!-- Uncomment the line below for use with live data -->
-  <!--include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" /-->
+  <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" />
 
 
 	<!-- Octomap -->
@@ -19,7 +30,7 @@
        The data is sent out in different representations.
        See www.ros.org/wiki/octomap_server for details -->
 	<node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
-		<param name="resolution" value="0.4" />
+		<param name="resolution" value="0.2" />
 
 		<!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
 
@@ -54,9 +65,8 @@ sensor data frame → /map (static world frame, changeable with parameter frame_
   <!-- Sample LiDAR Data Playback-->
   <!--  Comment out the line below for use with live data-->
 
-  <node pkg="rosbag" type="play" name="play" output="screen" args="--clock $(find mapping_and_path_planning)/bagfiles/velodyne_mavros.bag">
-		arg
-	</node>
+  <!-- <node pkg="rosbag" type="play" name="play" output="screen" args="clock $(find mapping_and_path_planning)/bagfiles/2021-09-10-14-12-22.bag">
+</node> -->
 
 
 
