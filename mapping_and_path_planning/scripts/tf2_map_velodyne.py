@@ -43,7 +43,7 @@ def callback_gps(data):
     #Copies the new pose info into a rotation quaternion
     orientation = data.pose.pose.orientation
     q_rot = [orientation.x, orientation.y, orientation.z, orientation.w]
-    print"The quaternion representation is %s %s %s %s." % (q_rot[0], q_rot[1], q_rot[2], q_rot[3])
+    #print"The quaternion representation is %s %s %s %s." % (q_rot[0], q_rot[1], q_rot[2], q_rot[3])
     q_new = q_rot
 
     # For horizontal LiDAR orientation, comment out the line below
