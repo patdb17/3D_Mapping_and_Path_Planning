@@ -1,28 +1,16 @@
 <launch>
 
-	<!-- <param name="/use_sim_time" value="true"/> -->
+	<param name="/use_sim_time" value="true"/>
 
   <!-- Pixhawk -->
   <!-- Starts the Mavros node for IMU/GPS data -->
   <!-- Uncomment the line below for use with live data -->
   <!--<include file="$(find mavros)/launch/apm.launch" />-->
 
-	<!-- <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" clear_params="true">
-		<rosparam command="load" file="$(find robot_localization)/params/navsat_transform_template.yaml" /> -->
-
-			<!-- Placeholders for input remapping. Set your topic names as the "to" values.
-			<remap from="imu/data" to=""/>
-			<remap from="odometry/filtered" to=""/>
-			<remap from="gps/fix" to=""/>
-			-->
-
-	<!-- </node> -->
-
-
   <!-- Velodyne -->
   <!-- Initializes and starts the VLP16 -->
   <!-- Uncomment the line below for use with live data -->
-  <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" />
+  <!-- <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" /> -->
 
 
 	<!-- Octomap -->
@@ -30,7 +18,7 @@
        The data is sent out in different representations.
        See www.ros.org/wiki/octomap_server for details -->
 	<node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
-		<param name="resolution" value="0.2" />
+		<param name="resolution" value="0.25" />
 
 		<!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
 
@@ -46,8 +34,17 @@ sensor data frame → /map (static world frame, changeable with parameter frame_
     <!--param name="base_frame_id" type="string" value="" /-->
 
 		<!-- maximum range to integrate (speedup!) -->
-		<param name="sensor_model/max_range" value="75.0" />
+		<param name="sensor_model/max_range" value="50.0" />
 
+		<!-- Default 0.7 -->
+		<param name="sensor_model/hit" value="0.97" />
+		<!-- Default 0.4 -->
+		<param name="sensor_model/miss" value="0.3" />
+
+		<!-- Default 0.12 -->
+		<param name="sensor_model/min" value="0.12" />
+		<!-- Default 0.97 -->
+		<param name="sensor_model/max" value="0.97" />
 		<!-- data source to integrate (PointCloud2) -->
 		<remap from="cloud_in" to="/velodyne_points" />
 
@@ -65,8 +62,8 @@ sensor data frame → /map (static world frame, changeable with parameter frame_
   <!-- Sample LiDAR Data Playback-->
   <!--  Comment out the line below for use with live data-->
 
-  <!-- <node pkg="rosbag" type="play" name="play" output="screen" args="clock $(find mapping_and_path_planning)/bagfiles/2021-09-10-14-12-22.bag">
-</node> -->
+  <node pkg="rosbag" type="play" name="play" output="screen" args="--clock $(find mapping_and_path_planning)/bagfiles/2021-09-16-10-52-49.bag">
+</node>
 
 
 
