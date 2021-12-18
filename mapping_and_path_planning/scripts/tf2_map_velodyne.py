@@ -10,6 +10,7 @@ from std_msgs.msg import Float64
 from sensor_msgs.msg import NavSatFix
 from nav_msgs.msg import Odometry
 import tf2_msgs.msg
+import time
 
 counter = 0
 # In z-y-x rotation convention (Tait-Bryan angles), the rotation from pixhawk to velodyne is (0, -90, 90)
@@ -20,7 +21,7 @@ q_orig = tf.transformations.quaternion_from_euler(1.5707, 0, 1.5707)
 def callback_gps(data):
     ''' Broadcasts this UAS's translation and rotation, and publishes it as a
     transform from frame "map" to frame "velodyne". '''
-
+    t_start = time.time()*1000
     global counter
     global t
     global q_orig
@@ -56,6 +57,7 @@ def callback_gps(data):
     t.transform.rotation.z = q_new[2]
     t.transform.rotation.w = q_new[3]
 
+    print("Transform time = " + str(time.time()*1000 - t_start) + "\n")
     talker()
 
 
@@ -71,11 +73,14 @@ def callback_heading(data):
 
 
 def talker():
+
+    t_start = time.time()*1000
     br = tf2_ros.TransformBroadcaster() # Creating TransformBroadcaster object instance
     global t
 
     # Sending a transform with a TransformBroadcaster requires passing in just the transform itself
     br.sendTransform(t)
+    print("Pulblish time = " + str(time.time()*1000 - t_start)  + "\n")
 
 
 def listener():
