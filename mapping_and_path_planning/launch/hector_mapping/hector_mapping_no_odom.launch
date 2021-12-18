@@ -2,8 +2,8 @@
 
 <launch>
   <arg name="tf_map_scanmatch_transform_frame_name" default="scanmatcher_frame"/>
-  <arg name="base_frame" default="velodyne"/>
-  <arg name="odom_frame" default="velodyne"/>
+  <arg name="base_frame" default="base_link"/>
+  <arg name="odom_frame" default="base_link"/>
   <arg name="pub_map_odom_transform" default="true"/>
   <arg name="scan_subscriber_queue_size" default="5"/>
   <arg name="scan_topic" default="scan"/>
@@ -38,7 +38,7 @@
 
     <!-- Advertising config -->
     <param name="advertise_map_service" value="true"/>
-
+velodyne
     <param name="scan_subscriber_queue_size" value="$(arg scan_subscriber_queue_size)"/>
     <param name="scan_topic" value="$(arg scan_topic)"/>
 
@@ -51,5 +51,5 @@
     <param name="tf_map_scanmatch_transform_frame_name" value="$(arg tf_map_scanmatch_transform_frame_name)" />
   </node>
 
-  <!--<node pkg="tf" type="static_transform_publisher" name="map_nav_broadcaster" args="0 0 0 0 0 0 map nav 100"/>-->
+  <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 base_link laser 100"/>
 </launch>

@@ -31,7 +31,7 @@ def callback_gps(data):
 
     t.header.seq = counter
     counter += 1
-    t.header.stamp = rospy.Time.now() # Gives transform being published a timestamp
+    t.header.stamp = data.header.stamp # Gives transform being published a timestamp
     t.header.frame_id = "map" # Sets the name of parent frame of the link we're creating to map
     t.child_frame_id = "velodyne" # Sets the name of the child node of the link we're creating to velodyne
 
