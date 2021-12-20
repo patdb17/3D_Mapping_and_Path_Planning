@@ -42,8 +42,13 @@ def image_publisher():
             rospy.Subscriber("mavros/global_position/rel_alt", Float64, callback_alt)
             rospy.Subscriber("mavros/global_position/compass_hdg", Float64, callback_heading)
 
+            # Calls function to read image from camera
             cv2_img = picam_capture.read_cam()
+
+            # Calls function to calculate image corners
             corners = uncorrected_corners(cv2_img, odom)
+
+
             geo_image = GeotaggedImage()
             geo_image.header.stamp = rospy.Time.now()
 
@@ -69,7 +74,7 @@ def image_publisher():
 
             rospy.loginfo("Image Seq Num: %d, tl_lat: %f" % (geo_image.header.seq, geo_image.tl_lat))
             pub.publish(geo_image)
-	    time.sleep(0.25)
+            time.sleep(0.25)
             cam_trigger = False
 
         rate.sleep()
@@ -95,9 +100,9 @@ def callback_odom(odom_data):
 
         # Do math to convert quaternion into ypr
         yaw, pitch, roll = tf.transformations.euler_from_quaternion([q_x, q_y, q_z, q_w], 'szyx')
-	yaw = math.degrees(yaw)
-	pitch = math.degrees(pitch)
-	roll = math.degrees(roll)
+        yaw = math.degrees(yaw)
+        pitch = math.degrees(pitch)
+        roll = math.degrees(roll)
         odom[4] = yaw
         odom[5] = pitch
         odom[6] = roll
