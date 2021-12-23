@@ -99,7 +99,7 @@ def callback_odom(odom_data):
                               odom_data.pose.pose.orientation.w]
 
         # Do math to convert quaternion into ypr
-        yaw, pitch, roll = tf.transformations.euler_from_quaternion([q_x, q_y, q_z, q_w], 'szyx')
+        yaw, pitch, roll = tf.transformations.euler_from_quaternion([q_x, q_y, q_z, q_w], 'sxyz')
         yaw = math.degrees(yaw)
         pitch = math.degrees(pitch)
         roll = math.degrees(roll)
